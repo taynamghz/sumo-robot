@@ -20,6 +20,12 @@ else if (edgeState =3){
   xmotion.StopMotors(0);
   edgeState = checkEdge();
 }
+else if (edgeState =2){
+  // xmotion.Left0(50,200);
+  xmotion.Forward(100,400);
+  xmotion.StopMotors(0);
+  edgeState = checkEdge();
+}
 else if (edgeState = 1){
   xmotion.Backward(100,400); 
   xmotion.Left0(50,200);
