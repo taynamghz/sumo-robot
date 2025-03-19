@@ -49,18 +49,22 @@ checkOpponent(direction);  // Update direction based on sensor readings
 
 
 }
-
 // int angleTurned = 0; // Track total rotation
 
-// while (angleTurned < 360) {
-//     xmotion.Left0(50, 100); // Turn left slightly (adjust timing if needed)
+// while (true) { // Infinite loop
+//     xmotion.Left0(50, 100); // Small turn left
 //     xmotion.StopMotors(100); // Pause briefly
-//     checkOpponent(direction); // Update direction based on sensors
-//     edgeState = checkEdge(); // Check if near edge
 
-//     if (direction != 0) {
-//         break; // Stop if opponent is found
+//     checkOpponent(direction); // Check for opponent
+//     edgeState = checkEdge();  // Check for edge
+
+//     if (direction != 0 || edgeState) {
+//         break; // Stop if opponent is found or edge detected
 //     }
 
-//     angleTurned += 10; // Increment by 10 degrees per loop (adjust as needed)
+//     angleTurned += 10; // Increment turn by 10 degrees
+
+//     if (angleTurned >= 360) {
+//         angleTurned = 0; // Reset after full turn to keep looping
+//     }
 // }
