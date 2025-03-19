@@ -51,43 +51,56 @@ void loop() {
   delay(5000);
   Serial.println("STARTED");
 
-if (DS1 == 0 && DS2 == 0 && DS3 == 0){ //program 1 (round 1 - straight) [switch towards front = 0]
+if (DS1 == 0 && DS2 == 0 && DS3 == 0){ //program 0 (round 1 - maneuver) [switch towards front = 0]
+maneuverX();
+//maneuverARC();
+forward_attack();
+
+}
+
+else if (DS1 == 0 && DS2 == 0 && DS3 == 1){ //program 1 (round 2 turn right 45) maneuver
+xmotion.Left0(100, 50); // right 70 old
+xmotion.Forward(100, 260);
+xmotion.Right0(100, 180);
+xmotion.Forward(100, 250);
+xmotion.Backward(100, 50);
+xmotion.Right0(100, 230);
+}
+
+else if (DS1 == 0 && DS2 == 1 && DS3 == 0){ //program 2 (round 2 turn left 45) maneuver
+xmotion.Right0(100, 50);
+xmotion.Forward(100, 260);
+xmotion.Left0(100, 180);
+xmotion.Forward(100, 250);
+xmotion.Backward(100, 50);
+xmotion.Left0(100, 230);
+}
+
+else if (DS1 == 0 && DS2 == 1 && DS3 == 1){ //program 3 (round 3 turn 180) maneuver
+xmotion.Left0(100, 230); // left 330 for 180
+xmotion.Forward(100, 260);
+xmotion.Left0(100, 180);
+xmotion.Forward(100, 250);
+xmotion.Backward(100, 50);
+xmotion.Left0(100, 230);
+xmotion.Forward(100, 200);
+}
+else if (DS1 == 1 && DS2 == 0 && DS3 == 0){ //program 4 arcturn left - rnd 1 - op2
+// xmotion.Left0(50, 250);
+// xmotion.ArcTurn(100, 30, 600);
+// xmotion.Right0(50, 50);
 forward_attack();
 }
-
-else if (DS1 == 0 && DS2 == 0 && DS3 == 1){ //program 2 (round 2 turn right 45)
-xmotion.Right0(100, 70);
+else if (DS1 == 1 && DS2 == 0 && DS3 == 1){ //program 5forward attack direct
+// forward_attack();
+xmotion.Right0(100, 80);
 }
-
-else if (DS1 == 0 && DS2 == 1 && DS3 == 0){ //program 3 (round 2 turn left 45)
-xmotion.Left0(100, 90);
-}
-
-else if (DS1 == 0 && DS2 == 1 && DS3 == 1){ //program 4 (round 3 turn 180)
+else if (DS1 == 1 && DS2 == 1 && DS3 == 0){ //program 6 BACKWARD arcturn right- rnd 1 - op3 XXX replace
 xmotion.Left0(100, 330);
 }
-else if (DS1 == 1 && DS2 == 0 && DS3 == 0){ //program 5 arcturn left - rnd 1 - op2
-xmotion.Left0(50, 250);
-xmotion.ArcTurn(100, 30, 600);
-xmotion.Right0(50, 50);
-forward_attack();
-}
-else if (DS1 == 1 && DS2 == 0 && DS3 == 1){ //program 6 arcturn right- rnd 1 - op3
-xmotion.Right0(50, 250);
-xmotion.ArcTurn(30, 100, 600);
-xmotion.Left0(50, 50);
-forward_attack();
-}
-else if (DS1 == 1 && DS2 == 1 && DS3 == 0){ //program 7 BACKWARD arcturn right- rnd 1 - op3
-xmotion.Left0(70, 350);
-xmotion.Right0(50, 250);
-xmotion.ArcTurn(30, 100, 600);
-xmotion.Left0(50, 50);
-forward_attack();
-}
 
-else if (DS1 == 1 && DS2 == 1 && DS3 == 1){ //program 8 frwd arcturn light- rnd 1 - op3
-xmotion.Forward(70, 150);
+else if (DS1 == 1 && DS2 == 1 && DS3 == 1){ //program 7 backward trick
+xmotion.Forward(100, 140);
 xmotion.Left0(100, 70);
 xmotion.Backward(100, 200);
 forward_attack();
@@ -111,11 +124,11 @@ check_sensors(direction); // Update direction based on sensor readings
     avoidEdge(edgeState);
     check_sensors(direction); // Update direction based on sensor readings 
 }
-if (direction == 0) { //(error: it had else, meaning it will never execute this if it executed the first if)
+if (direction == 0) {
     //hunt();
     edgeState = checkEdge();
     while (edgeState == 0 && direction == 0){
-      xmotion.Forward(40, 10);
+      xmotion.Forward(50, 10);
       check_sensors(direction);
       if (direction != 0){
         break;
@@ -259,7 +272,8 @@ void forward_attack() {
   // xmotion.StopMotors(0);
   check_sensors(direction);
 if (direction == 1){
-   xmotion.Forward(100, 30); // %100 Speed, both motor forward 100mS.
+   xmotion.Forward(100, 50); // %100 Speed, both motor forward 100mS.
+   //xmotion.Backward(100, 50); //                                          *** new (forward was 30 and no bw)
   check_sensors(direction);
 
 }
@@ -377,6 +391,32 @@ else if (edgeState = 1){
 
 }
 }
+}
+
+
+
+void maneuverX(){
+xmotion.Right0(100, 180);
+xmotion.Forward(100, 260);
+xmotion.Left0(100, 180);
+
+check_sensors(direction);
+if (direction != 0)
+{return(0);}
+
+xmotion.Forward(100, 250);
+xmotion.Backward(100, 50);
+xmotion.Left0(100, 230);
+xmotion.Forward(100, 200);
+}
+
+
+
+void maneuverARC(){
+xmotion.Left0(100, 180);
+xmotion.ArcTurn(100, 40, 350);
+xmotion.Right0(100, 250);
+
 }
 
   
