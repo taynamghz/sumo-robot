@@ -1,5 +1,5 @@
 
-void check_Opponent(int &direction) {
+void checkOpponent(int &direction) {
   int sensorFv = digitalRead(sensorF);
   int sensorLv = digitalRead(sensorL);
   int sensorRv = digitalRead(sensorR);
