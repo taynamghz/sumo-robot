@@ -3,17 +3,17 @@ void forward_attack() {
   int edgeState = checkEdge();
   // xmotion.Forward(100, 50); // %100 Speed, both motor forward 100mS.
   // xmotion.StopMotors(0);
-  check_sensors(direction);
+  checkOpponent(direction);
 if (direction == 1){
    xmotion.Forward(100, 50); // %100 Speed, both motor forward 100mS.
    //xmotion.Backward(100, 50); //                                          *** new (forward was 30 and no bw)
-  check_sensors(direction);
+  checkOpponent(direction);
 
 }
   // Continue forward while not crossing the edge and facing a front obstacle
   while (direction == 1 ) {
     // Read sensor values and update direction
-    check_sensors(direction);
+    checkOpponent(direction);
     Serial.println(" before attacking");
 
     // Move forward
