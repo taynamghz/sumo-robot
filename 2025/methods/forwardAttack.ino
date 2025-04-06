@@ -1,12 +1,11 @@
 
 void forward_attack() {
   int edgeState = checkEdge();
-  // xmotion.Forward(100, 50); // %100 Speed, both motor forward 100mS.
-  // xmotion.StopMotors(0);
+
   checkOpponent(direction);
 if (direction == 1){
-   xmotion.Forward(100, 50); // %100 Speed, both motor forward 100mS.
-   //xmotion.Backward(100, 50); //                                          *** new (forward was 30 and no bw)
+   xmotion.Forward(100, 50); // %100 Speed
+   //xmotion.Backward(100, 50);
   checkOpponent(direction);
 
 }
