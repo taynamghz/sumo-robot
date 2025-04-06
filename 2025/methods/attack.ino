@@ -1,14 +1,14 @@
 
 void attack(int direction) {
-  if (direction == 1) { //F
+  if (direction == 1) { //oponent is infront 
     forward_attack();
     Serial.println("attacking forward");
-  } else if (direction == 5) { //RF
+  } else if (direction == 5) { //Right forward
     xmotion.Right0(50, 80);
     forward_attack();
     xmotion.StopMotors(30);
     Serial.println("attacking RF");
-  } else if (direction == 4) {
+  } else if (direction == 4) { //left forward
     xmotion.Left0(50,80);
     forward_attack(); 
     xmotion.StopMotors(30);
@@ -28,10 +28,10 @@ void attack(int direction) {
     Serial.println("NO ACTION");
   }
   
-  // After performing attack, check for edges
+  
   int edgeState = checkEdge();
   if (edgeState != 0) {
-    // If edge is detected, perform edge avoidance
+    // If edge is detected, avoid it
     avoidEdge(edgeState);
   }
 }
