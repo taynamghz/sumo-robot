@@ -7,7 +7,7 @@ int checkEdge() {
     sensorV[2] = analogRead(ML3); // FRONT RIGHT
 
    
-    int threshold = 300;
+    int threshold = 350;
     int thresholdB = 500;
 
 
@@ -49,6 +49,5 @@ void printSensorValues() {
     Serial.print("FL: "); Serial.print(sensorFL);
     Serial.print(" | B: "); Serial.print(sensorB);
     Serial.print(" | FR: "); Serial.println(sensorFR);
-    delay(800);
+   
 }
-
