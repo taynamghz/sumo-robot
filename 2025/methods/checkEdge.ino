@@ -2,16 +2,18 @@ int checkEdge() {
     delay(10);
     int sensorV[3]; 
 
-    sensorV[0] = analogRead(ML2); // BACK
-    sensorV[1] = analogRead(ML1); // FRONT LEFT
+    sensorV[0] = analogRead(ML1); // FL
+    sensorV[1] = analogRead(ML2); // back
     sensorV[2] = analogRead(ML3); // FRONT RIGHT
 
    
-    int threshold = 200;
+    int threshold = 300;
+    int thresholdB = 500;
+
 
     // 1 = robot is at edge, 0 = safe)
-    sensorV[0] = (sensorV[0] < threshold) ? 1 : 0; // Back
-    sensorV[1] = (sensorV[1] < threshold) ? 1 : 0; // Front Left
+    sensorV[0] = (sensorV[0] < threshold) ? 1 : 0; // FL
+    sensorV[1] = (sensorV[1] < thresholdB) ? 1 : 0; // B
     sensorV[2] = (sensorV[2] < threshold) ? 1 : 0; // Front Right
 
     int state = 0; // Default: robot is safe
@@ -19,16 +21,16 @@ int checkEdge() {
     if (sensorV[0] == 0 && sensorV[1] == 0 && sensorV[2] == 0) {
         state = 0;
         Serial.println("Robot is safe - No edge detected");
-    } else if (sensorV[1] == 1 && sensorV[2] == 0) {
+    } else if (sensorV[0] == 1 && sensorV[2] == 0) {
         state = 1;
         Serial.println("Front left is at edge");
-    } else if (sensorV[0] == 1) {
+    } else if (sensorV[1] == 1) {
         state = 2;
         Serial.println("Back  is at edge");
-    } else if (sensorV[2] == 1 && sensorV[1] == 0) {
+    } else if (sensorV[2] == 1 && sensorV[0] == 0) {
         state = 3;
         Serial.println("Front right is at edge");
-    } else if (sensorV[1] == 1 && sensorV[2] == 1) {
+    } else if (sensorV[0] == 1 && sensorV[2] == 1) {
         state = 4;
         Serial.println("Both front sensors are at edge");
     }
