@@ -1,39 +1,35 @@
 
 void forward_attack() {
   int edgeState = checkEdge();
+  int direction = 0;  // Local variable to check real-time opponent detection
 
-  checkOpponent(direction);
-if (direction == 1){
-   xmotion.Forward(100, 50); // %100 Speed
-   //xmotion.Backward(100, 50);
-  checkOpponent(direction);
+  checkOpponent(direction); 
+  // if (direction == 1) {
+  //   xmotion.Forward(100, 50);  // Move forward
+  // } else {
+  //   xmotion.StopMotors(0);  // Stop if no opponent is detected
+  // }
+  
+  while (direction == 1) {
+    checkOpponent(direction);  // Continuously check for opponent
+    // if (direction == 0) { 
+    //   xmotion.StopMotors(0);
+    //   Serial.println("No opponent, stopping.");
+    //   break;
+    // }
 
-}
-  // Continue forward while not crossing the edge and facing a front obstacle
-  while (direction == 1 ) {
-    // Read sensor values and update direction
-    checkOpponent(direction);
-    Serial.println(" before attacking");
+    Serial.println("Before attacking");
+    xmotion.Forward(50, 10);  // Move forward in small steps
+    Serial.println("After attacking");
 
-    // Move forward
-    xmotion.Forward(100, 10); // %100 Speed, both motor forward 100mS.
-    Serial.println(" after attacking");
-
-    // After performing attack, check for edges
     edgeState = checkEdge();
-    if (edgeState != 0){
-      // mayy not use may use 
-     // xmotion.Backward(100, 200);
+    if (edgeState != 0) {
       break;
     }
   }
+  
   edgeState = checkEdge();
   if (edgeState != 0) {
-      // If edge is detected, perform edge avoidance
-      avoidEdge(edgeState);
-      edgeState = checkEdge();
-      
-      }
-      
-      //avoidEdge(edgeState);
-    }
+    avoidEdge(edgeState);
+  }
+}
