@@ -1,4 +1,3 @@
-
 void checkOpponent(int &direction) {
   int sensorFv = digitalRead(sensorF);
   int sensorLv = digitalRead(sensorL);
@@ -7,21 +6,21 @@ void checkOpponent(int &direction) {
   int sensorRFv = digitalRead(sensorRF);
 
   if (sensorFv == 1) {
-    Serial.println("detected front");
+    Serial.println("Detected front");
     direction = 1;
   } else if (sensorLv == 1) {
-    Serial.println("detected left");
+    Serial.println("Detected left");
     direction = 2;
   } else if (sensorRv == 1) {
-    Serial.println("detected right");
+    Serial.println("Detected right");
     direction = 3;
   } else if (sensorLFv == 1) {
-    Serial.println("detected LF");
+    Serial.println("Detected left front");
     direction = 4;
   } else if (sensorRFv == 1) {
-    Serial.println("detected RF");
+    Serial.println("Detected right front");
     direction = 5;
   } else {
-    direction = 0; // No detection, reset direction
+    direction = 0; // None detected
   }
 }
