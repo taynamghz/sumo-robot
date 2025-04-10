@@ -1,5 +1,4 @@
 
-
  void avoidEdge(int &edgeState) {
 while (edgeState!=0)
   {
